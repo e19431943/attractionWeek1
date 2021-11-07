@@ -1,0 +1,97 @@
+/* attarction Page */
+.main-area {
+  position: relative;
+  width: 1280px;
+  height: 536px;
+  padding: 23px 27px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-image {
+  position: absolute;
+  top: 23px;
+  bottom: 23px;
+  left: 27px;
+  right: 27px;
+  background-image: url('../image/jpg/helo-image.jpg');
+  background-repeat: no-repeat;
+}
+.main-area::before {
+  position: absolute;
+  content: "";
+  width: 60%;
+  height: 50px;
+  background: linear-gradient(
+    175deg, 
+    var(--blackColor) 0%,
+    #fff 50%,
+    #fff 100%
+  );
+  bottom: -25px;
+  left: 0;
+  z-index: -1;
+}
+.main-area::after {
+  position: absolute;
+  content: "";
+  width: 60%;
+  height: 50px;
+  background: linear-gradient(
+    185deg, 
+    var(--blackColor) 0%,
+    #fff 50%,
+    #fff 100%
+  );
+  bottom: -25px;
+  right: 0;
+  z-index: -1;
+}
+
+.main-control {
+  position: relative;
+  width: 492px;
+}
+.control-text {
+  width: 100%;
+}
+.control-text > p {
+  color: var(--lightColor);
+  font-size: var(--smail-font);
+  line-height: 21px;
+  
+}
+
+/* search */
+.control-search {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.control-button, .control-select, .control-text-field{
+  border-radius: 5px;
+  height: 40PX;
+}
+.control-text-field {
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 0 12px 0 24px;
+}
+.control-text-field::placeholder {
+  color: #D2D2D2;
+}
+.control-select {
+  width: 44%;
+}
+
+.control-button {
+  width: 40px;
+  height: 40px;
+}
+.search-button {
+  background-color: var(--redColor);
+}
+.position-button {
+  background-color: var(--yellowColor);
+}

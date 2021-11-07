@@ -4,26 +4,72 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./src/css/reset.css">
+  <link rel="stylesheet" href="./src/css/variable.css">
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/attractionPage.css">
   <title>Taiwan_TourGuide</title>
 </head>
-<body>
-  <header></header>
-  <main>
-    <div class="first-page">
-      <div class="control"></div>
-      <div class="hot-city"></div>
-      <div class="hot-activit"></div>y  
-      <div class="hot-restaurant"></div>
-    </div>
-    <div class="second-page">
-
-
-    </div>
-    <div class="third-page">
-
-
-    </div>
-  </main>
-  <footer></footer>
+<body class="body">
+  <div class="wrep">
+    <header class="header">
+      <h1 class="logo">
+        <a href="#">
+          <img src="./src/image/svg/logo.svg" alt="Logo">
+        </a>
+      </h1>
+      <ul class="nav">
+        <li class="nav-item">
+          <img src="./src/image/svg/navButton1.svg" alt="台灣景點">
+          <a href="#">台灣景點</a>
+        </li>
+        <li class="nav-item">
+          <img src="./src/image/svg/navButton2.svg" alt="美食住宿">
+          <a href="#">美食住宿</a>
+        </li>
+        <li class="nav-item">
+          <img src="./src/image/svg/navButton3.svg" alt="景點交通">
+          <a href="#">景點交通</a>
+        </li>
+      </ul>
+    </header>
+    <main>
+      <div class="first-page">
+        <div class="main-area">
+          <div class="hero-image"></div>
+          <div class="main-control">
+            <div class="control-text">
+              <img src="./src/image/svg/contrilText.png" alt="Taiwan_title">
+              <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
+            </div>
+            <div class="control-search">
+              <input type="text" placeholder="搜尋關鍵字" class="control-text-field">
+              <button class="control-button search-button">
+                <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
+              </button>
+              <select id="" class="control-select"></select>
+              <select id="" class="control-select"></select>
+              <button  class="control-button position-button">
+                <img src="./src/image/svg/Icon/Vector.svg" alt="定位_icon">
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="hot-city"></div>
+        <div class="hot-activit"></div>
+        <div class="hot-restaurant"></div>
+      </div>
+      <div class="second-page">
+  
+        
+      </div>
+      <div class="third-page">
+  
+  
+      </div>
+    </main>
+    <footer></footer>
+  </div>
+  <script src="./src/js/main.js"></script>
 </body>
 </html>

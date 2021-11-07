@@ -1,0 +1,11 @@
+:root {
+  --redColor: #FF1D6C;
+  --greenColor: #007350;
+  --yellowColor: #FFB72C;
+  --blackColor: #0D0B0C;
+  --grayColor: #ACACAC;
+  --lightColor: #ffffff;
+
+  /*font-size*/
+  --smail-font: 14px;
+}
