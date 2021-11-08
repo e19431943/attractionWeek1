@@ -79,10 +79,19 @@
   padding: 0 12px 0 24px;
 }
 .control-text-field::placeholder {
-  color: #D2D2D2;
+  color: var(--grayLightColor);
 }
+/* select */
 .control-select {
+  font-size: 1.2rem;
+  letter-spacing: 20px;
   width: 44%;
+}
+.select-item {
+
+}
+.tests {
+  letter-spacing: 30px;
 }
 
 .control-button {

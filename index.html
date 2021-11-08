@@ -37,7 +37,7 @@
       <div class="first-page">
         <div class="main-area">
           <div class="hero-image"></div>
-          <div class="main-control">
+          <div class="main-control"> 
             <div class="control-text">
               <img src="./src/image/svg/contrilText.png" alt="Taiwan_title">
               <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
@@ -47,8 +47,8 @@
               <button class="control-button search-button">
                 <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
               </button>
-              <select id="" class="control-select"></select>
-              <select id="" class="control-select"></select>
+              <select id="classSelect" class="control-select"></select>
+              <select id="citySelect" class="control-select"></select>
               <button  class="control-button position-button">
                 <img src="./src/image/svg/Icon/Vector.svg" alt="定位_icon">
               </button>
@@ -70,6 +70,10 @@
     </main>
     <footer></footer>
   </div>
-  <script src="./src/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
+  <script type="module" src="./src/js/main.js"></script>
+  <script type="module" src="./src/js/apiDataProcess.js"></script>
+  <script type="module" src="./src/js/attraction.js"></script>
 </body>
 </html>
