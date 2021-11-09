@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./src/css/reset.css">
   <link rel="stylesheet" href="./src/css/variable.css">
+  <link rel="stylesheet" href="./src/css/publicStyle.css">
   <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/attractionPage.css">
   <title>Taiwan_TourGuide</title>
@@ -35,7 +36,7 @@
     </header>
     <main>
       <div class="first-page">
-        <div class="main-area">
+        <div class="main-area mb-90">
           <div class="hero-image"></div>
           <div class="main-control"> 
             <div class="control-text">
@@ -50,19 +51,37 @@
               <select id="classSelect" class="control-select"></select>
               <select id="citySelect" class="control-select"></select>
               <button  class="control-button position-button">
-                <img src="./src/image/svg/Icon/Vector.svg" alt="定位_icon">
+                <img src="./src/image/svg/Icon/Position.svg" alt="定位_icon">
               </button>
             </div>
           </div>
         </div>
-        <div class="hot-city"></div>
-        <div class="hot-activit"></div>
-        <div class="hot-restaurant"></div>
+        <div class="show-area">
+          <div class="hot-city-container">
+            <div class="item-title mb-12">
+              <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
+              <p>熱門城市</p>
+            </div>
+            <div class="city-show-container">
+              <button class="city-button" value="pre">
+                <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
+              </button>
+              <ul id="hotCityShow" class="hot-city-show">
+              </ul>
+              <button class="city-button button-show"value="next">
+                <img src="./src/image/svg/Icon/next_b.svg" alt="nextIcon">
+              </button>
+            </div>
+          </div>
+          <div class="hot-activit"></div>
+          <div class="hot-restaurant"></div>
+        </div>
       </div>
       <div class="second-page">
-  
+       
         
-      </div>
+        
+      </div> 
       <div class="third-page">
   
   

@@ -1,0 +1,28 @@
+/* 共用樣式 */
+.item-title {
+  display: flex;
+}
+.item-title > img {
+  margin-right: 14px;
+}
+.item-title > p {
+  font-size: 20px;
+}
+
+
+
+
+
+
+.mb-90 {
+  margin-bottom: 90px;
+}
+.mb-12 {
+  margin-bottom: 12px;
+}
+.mb-6 {
+  margin-bottom: 6px;
+}
+.m r-14{
+  margin-right: 14px;
+}
