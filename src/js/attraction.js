@@ -80,12 +80,16 @@ function hotCityPage(e) {
 }
 
 function switchCityButton() {
+  
   cityButton.forEach(item => {
     if(item.classList.value.split(' ').indexOf('button-show') !== -1) {
+      item.setAttribute('disabled','disabled');
       item.classList.remove('button-show');
+      console.log('test');
     }
     else {
       item.classList.add('button-show');
+      item.removeAttribute('disabled');
     }
  });
 }

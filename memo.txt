@@ -8,3 +8,7 @@ controlText 的SVG 檔案無法在瀏覽器下正確顯示 //暫且轉換成png 
 
 11/8 學習module 用法(export import)，非同步資料 以及 同步資料的問題
      進度寫完兩個select 的動態拉值， 跟程式架構流程
+
+
+11/9 學習gird 還有svg在img的一些換色技巧 
+     進度寫完hot city部分 使用disabled  讓案鍵可以鎖定
