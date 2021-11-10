@@ -1,3 +1,18 @@
+/*公用card的架構*/
+<ul class="card-list" id="restaurantList">
+     <li class="card">
+          <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+          <p class="card-name">友誼山莊簡餐</p>
+          <span class="card-position">
+          <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+          <p>連江縣莒光鄉</p>
+          </span>
+     </li>
+</ul>
+
+
+
+
 /* 遇到的問題 */
 controlText 的SVG 檔案無法在瀏覽器下正確顯示 //暫且轉換成png 來使用
 
@@ -12,3 +27,5 @@ controlText 的SVG 檔案無法在瀏覽器下正確顯示 //暫且轉換成png 
 
 11/9 學習gird 還有svg在img的一些換色技巧 
      進度寫完hot city部分 使用disabled  讓案鍵可以鎖定
+
+11/10 今天的進度把 餐飲跟活動切好 並把資料放上去 

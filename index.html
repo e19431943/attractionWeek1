@@ -34,7 +34,7 @@
         </li>
       </ul>
     </header>
-    <main>
+    <main class="main">
       <div class="first-page">
         <div class="main-area mb-90">
           <div class="hero-image"></div>
@@ -57,37 +57,56 @@
           </div>
         </div>
         <div class="show-area">
-          <div class="hot-city-container">
-            <div class="item-title mb-12">
-              <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
-              <p>熱門城市</p>
-            </div>
+          <div class="hot-city-container mb-60"">
             <div class="city-show-container">
-              <button class="city-button" value="pre">
-                <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
-              </button>
+              <div class="item-title mb-12">
+                <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
+                <p>熱門城市</p>
+              </div>
               <ul id="hotCityShow" class="hot-city-show">
               </ul>
-              <button class="city-button button-show"value="next">
+              <button class="city-button city-pre-button" value="pre">
+                <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
+              </button>
+              <button class="city-button button-show city-next-button"value="next">
                 <img src="./src/image/svg/Icon/next_b.svg" alt="nextIcon">
               </button>
             </div>
           </div>
-          <div class="hot-activit"></div>
-          <div class="hot-restaurant"></div>
+          <div class="hot-activity mb-60">
+            <div class="item-title mb-12">
+              <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
+              <p>熱門活動</p>
+            </div>
+            <ul class="activity-list" id="activityList">
+            </ul>
+          </div>
+          <div class="hot-restaurant">
+            <div class="item-title mb-12">
+              <img src="./src/image/svg/Rectangle.svg" alt="標點">
+              <p>熱門餐飲</p>
+            </div>
+            <ul class="card-list" id="restaurantList">
+              <li class="card mb-35">
+                <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+                <p class="card-name">友誼山莊簡餐</p>
+                <span class="card-position">
+                  <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+                  <p>連江縣莒光鄉</p>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="second-page">
-       
-        
-        
       </div> 
       <div class="third-page">
-  
-  
       </div>
     </main>
-    <footer></footer>
+    <footer class="footer">
+      <p>Taiwan Tourguide  © Code: Nofly翔  /  Design: KT</p>
+    </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>

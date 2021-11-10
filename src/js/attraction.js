@@ -1,8 +1,7 @@
 /* 引入資料 */
-import { cityData } from './apiDataProcess.js';
+import { cityData, activityData, restaurantData } from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
-
-
+console.log(restaurantData);
 /* 固定資料 */
 const classOne = ['景點','活動'];
 
@@ -50,7 +49,6 @@ function autoCitySelect() {
 
 /* 動態hot city */
 const hotCityShow = document.getElementById('hotCityShow');
-console.log(cityData);
 function autoHotCity() {
   let str = '';
   let tempData = [];
@@ -67,9 +65,52 @@ function autoHotCity() {
   hotCityShow.innerHTML = str;
 }
 
+/* 動態 hot activity */
+const activityList = document.getElementById('activityList');
+function autoHotActivity() {
+  let str = '';
+  for(let i = 0; i < 4; i++) {
+    str +=`
+      <li class="activity-card mb-48">
+        <img src="${ activityData[i].Picture.PictureUrl1 }" class="mr-16">
+        <div class="activity-content">
+          <h3 class="mb-14">${ activityData[i].Name }</h3>
+          <p class="mb-14">${ activityData[i].Description }</p>
+          <div class="activity-info">
+            <span class="activity-position">
+              <img src="./src/image/svg/Icon/gps.svg" alt="position" class="mr-8">
+              <p>${ activityData[i].Location }</p>
+            </span>
+            <button class="activity-button">活動詳情</button>
+          </div>
+        </div>
+      </li>
+    `;
+  }
+  activityList.innerHTML = str;
+}
+
+/* 動態hot restaurant */
+const restaurantList = document.getElementById('restaurantList');
+function autoHotRestaurant() {
+  let str = '';
+  for(let i =0; i < 10; i++) {
+    str +=`
+      <li class="card">
+        <img src="${ restaurantData[i].Picture.PictureUrl1 }" alt="餐廳照片">
+        <p class="card-name">${ restaurantData[i].Name }</p>
+        <span class="card-position">
+          <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+          <p>${ restaurantData[i].Address.substr(0,6) }</p>
+        </span>
+      </li>
+    `
+  }
+  restaurantList.innerHTML = str;
+}
+
 /* 事件處理函式 */
 function hotCityPage(e) {
-  console.log(e.target.classList);
   if(e.target.value === 'next') {
     clickPage = 1;
   }else {
@@ -79,13 +120,13 @@ function hotCityPage(e) {
   render();
 }
 
+/* 確保隱藏起來的button 不會被觸發 */
 function switchCityButton() {
   
   cityButton.forEach(item => {
     if(item.classList.value.split(' ').indexOf('button-show') !== -1) {
       item.setAttribute('disabled','disabled');
       item.classList.remove('button-show');
-      console.log('test');
     }
     else {
       item.classList.add('button-show');
@@ -93,10 +134,6 @@ function switchCityButton() {
     }
  });
 }
-function resetCityButton() {
-
-}
-
 
 function render() {
   autoHotCity();
@@ -105,3 +142,19 @@ function render() {
 autoHotCity();
 autoCitySelect();
 autoClassSelect();
+autoHotActivity();
+autoHotRestaurant();
+
+
+
+
+// <ul class="card-list" id="restaurantList">
+//   <li class="card">
+//     <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+//     <p class="card-name">友誼山莊簡餐</p>
+//     <span class="card-position">
+//       <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+//       <p>連江縣莒光鄉</p>
+//     </span>
+//   </li>
+// </ul>
