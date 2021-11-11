@@ -76,7 +76,7 @@
 .card-position  {
   display: flex;
 }
-.card-position p{
+.card-position p{ 
   font-size: 12px;
   color: var(--greenColor);
 }
@@ -95,6 +95,12 @@
 .mb-35 {
   margin-bottom: 35px;
 }
+.mb-25 {
+  margin-bottom: 25px;
+}
+.mb-22 {
+  margin-bottom: 22px;
+}
 .mb-14 {
   margin-bottom: 14px;
 }
@@ -103,6 +109,9 @@
 }
 .mb-6 {
   margin-bottom: 6px;
+}
+.mr-18 {
+  margin-right: 18px;
 }
 .mr-16 {
   margin-right: 16px;

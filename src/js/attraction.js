@@ -1,16 +1,15 @@
 /* 引入資料 */
 import { cityData, activityData, restaurantData } from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
-console.log(restaurantData);
 /* 固定資料 */
 const classOne = ['景點','活動'];
 
 /* 動態變數 */
 let clickPage = 0;
 
-
 /* 事件觸發 */
-const cityButton = document.querySelectorAll('.city-button');
+let activityButton;
+const cityButton = document.querySelectorAll('.city-button'); //city 切換事件
 cityButton.forEach(item => {
   item.addEventListener('click', hotCityPage);
 });
@@ -81,13 +80,14 @@ function autoHotActivity() {
               <img src="./src/image/svg/Icon/gps.svg" alt="position" class="mr-8">
               <p>${ activityData[i].Location }</p>
             </span>
-            <button class="activity-button">活動詳情</button>
+            <button class="activity-button" value="${ activityData[i].Name }">活動詳情</button>
           </div>
         </div>
       </li>
     `;
   }
   activityList.innerHTML = str;
+  eventInit();
 }
 
 /* 動態hot restaurant */
@@ -135,6 +135,70 @@ function switchCityButton() {
  });
 }
 
+/* */
+function eventInit() {
+  activityButton = document.querySelectorAll('.activity-button');
+  activityButton.forEach(item => {
+    item.addEventListener('click', activityInfo);
+  });
+  
+  
+}
+
+const fullView = document.getElementById('fullView');
+let closeButton;
+console.log(activityData);
+function activityInfo(e) {
+  let showActivity = activityData.filter(item => item.Name === e.target.value);
+  let str = `
+    <div class="activity-info-card">
+      <button class="close-button" id="closeButton">
+        <img src="./src/image/svg/Icon/close.svg" alt="close button">
+      </button>
+      <img class="mb-22" src="${ showActivity[0].Picture.PictureUrl1 }" alt="活動照片">
+      <div class="activity-info-control">
+        <button class="mr-18" value="Pre">
+          <img src="./src/image/svg/Icon/previous-1.svg" alt="previos">
+        </button>
+        <button value="Next">
+          <img src="./src/image/svg/Icon/next_b.svg" alt="next">
+        </button>
+      </div>
+      <h4 class="activity-info-title">${ showActivity[0].Name }</h4>
+      <p class="activity-info-content mb-22">${ showActivity[0].Description }</p>
+      <ul class="activity-info-group">
+        <li class="info-group-item mb-25">
+          <img src="./src/image/svg/Icon/time.svg" alt="open time">
+          <p>2021-09-30T00:00:00+08:00</p>
+        </li>
+        <li class="info-group-item">
+          <img src="./src/image/svg/Icon/ticket.svg" alt="price">
+          <p>沒有提供</p>
+        </li>
+        <li class="info-group-item">
+          <img src="./src/image/svg/Icon/gps.svg" alt="position">
+          <p>${ showActivity[0].Location }</p>
+        </li>
+        <li class="info-group-item">
+          <img src="./src/image/svg/Icon/tel.svg" alt="phone number">
+          <p>沒有提供</p>
+        </li>
+      </ul>
+    </div>
+  `;
+  fullView.innerHTML = str;
+  fullView.classList.add('full-view-show');
+  closeButton = document.getElementById('closeButton');
+  closeButton.addEventListener('click', closeView);
+  fullView.addEventListener('click', closeView)
+}
+
+ function closeView(e) {
+  fullView.classList.remove('full-view-show');
+}
+
+
+
 function render() {
   autoHotCity();
 }
@@ -146,15 +210,3 @@ autoHotActivity();
 autoHotRestaurant();
 
 
-
-
-// <ul class="card-list" id="restaurantList">
-//   <li class="card">
-//     <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
-//     <p class="card-name">友誼山莊簡餐</p>
-//     <span class="card-position">
-//       <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
-//       <p>連江縣莒光鄉</p>
-//     </span>
-//   </li>
-// </ul>
