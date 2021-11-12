@@ -4,6 +4,7 @@ import { apiGetCityName, apiGetActivity, apiGetRestaurant} from './api.js';
 
 async function getData(data) {
   let res;
+  console.log(res);
   try {
     res =  await data;
   } catch (error) {

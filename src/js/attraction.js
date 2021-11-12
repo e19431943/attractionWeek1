@@ -144,7 +144,7 @@ function eventInit() {
   
   
 }
-
+const body = document.querySelector('body');
 const fullView = document.getElementById('fullView');
 let closeButton;
 console.log(activityData);
@@ -190,11 +190,16 @@ function activityInfo(e) {
   fullView.classList.add('full-view-show');
   closeButton = document.getElementById('closeButton');
   closeButton.addEventListener('click', closeView);
-  fullView.addEventListener('click', closeView)
+  fullView.addEventListener('click', closeView);
+  body.classList.add('body-overflow-hiddle');
 }
-
+ 
  function closeView(e) {
-  fullView.classList.remove('full-view-show');
+   console.log(e.target.preentNode);
+  if( e.target === fullView || e.target.parentNode === closeButton) {
+    fullView.classList.remove('full-view-show');
+    body.classList.remove('body-overflow-hiddle');
+  }
 }
 
 

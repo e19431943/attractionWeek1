@@ -2,6 +2,10 @@
 
 .body {
   font-family: 'Noto Sans TC', sans-serif;
+ 
+}
+.body-overflow-hiddle {
+  overflow: hidden;
 }
 * {
   box-sizing: border-box;
