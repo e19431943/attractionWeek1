@@ -15,11 +15,6 @@ cityButton.forEach(item => {
 });
 
 
-
-
-
-
-
 /* 動態類別 */
 const classSelect = document.getElementById('classSelect');
 
@@ -146,18 +141,23 @@ function eventInit() {
 }
 const body = document.querySelector('body');
 const fullView = document.getElementById('fullView');
-let closeButton;
+let  detailPicture;
+let closeButton; //關閉跳出視窗的按鍵
+let showActivity; //過濾出選中的詳細資料
+let activityPictures; //選出所有的照片資料
 console.log(activityData);
-function activityInfo(e) {
-  let showActivity = activityData.filter(item => item.Name === e.target.value);
+async function activityInfo(e) {
+  showActivity = activityData.filter(item => item.Name === e.target.value);
+  activityPictures = getActivityPicture(showActivity[0].Picture);
+  console.log(activityPictures);
   let str = `
     <div class="activity-info-card">
       <button class="close-button" id="closeButton">
         <img src="./src/image/svg/Icon/close.svg" alt="close button">
       </button>
-      <img class="mb-22" src="${ showActivity[0].Picture.PictureUrl1 }" alt="活動照片">
+      <img class="mb-22" id="detailPicture" src="${ activityPictures[0] }" alt="活動照片">
       <div class="activity-info-control">
-        <button class="mr-18" value="Pre">
+        <button class="mr-18 button-lock" value="Pre">
           <img src="./src/image/svg/Icon/previous-1.svg" alt="previos">
         </button>
         <button value="Next">
@@ -192,14 +192,57 @@ function activityInfo(e) {
   closeButton.addEventListener('click', closeView);
   fullView.addEventListener('click', closeView);
   body.classList.add('body-overflow-hiddle');
+  activityControlInfo = document.querySelector('.activity-info-control');
+  activityControlInfo.addEventListener('click', switchPicture);
+  detailPicture = document.getElementById('detailPicture');
 }
- 
- function closeView(e) {
+
+/* 得到活動的照片資料 */
+function getActivityPicture(data) {
+  let re = /^\http/;
+  return Object.values(data).filter(item => re.test(item));
+}
+
+/* 觸發按下關閉鍵的事件處理 */
+function closeView(e) {
    console.log(e.target.preentNode);
   if( e.target === fullView || e.target.parentNode === closeButton) {
     fullView.classList.remove('full-view-show');
     body.classList.remove('body-overflow-hiddle');
   }
+}
+
+/* 切換照片 */
+let activityControlInfo;
+let pictureNum = 0;
+function switchPicture(e) {
+  e.stopPropagation();
+  let nextButton = document.querySelector('.activity-info-control button[value="Next"]');
+  let preButton = document.querySelector('.activity-info-control button[value="Pre"]');
+  if( e.target.parentNode.value === 'Next') {
+    pictureNum ++;
+  }
+  else if(e.target.parentNode.value === 'Pre') {
+    pictureNum--;
+  }
+  if(pictureNum >= activityPictures.length-1 && pictureNum <= 0) {
+    nextButton.classList.add('button-lock');
+    preButton.classList.add('button-lock');
+  }
+  else if(pictureNum >= activityPictures.length-1) {
+    pictureNum = activityPictures.length-1;
+    nextButton.classList.add('button-lock');
+  }
+  else if(pictureNum <= 0) {
+    pictureNum = 0;
+    preButton.classList.add('button-lock');
+  }
+  else{
+    nextButton.classList.remove('button-lock');
+    preButton.classList.remove('button-lock');
+  }
+  console.log(pictureNum);
+  detailPicture.setAttribute('src',activityPictures[pictureNum]);
 }
 
 

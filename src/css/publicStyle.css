@@ -96,7 +96,10 @@
   color: var(--greenColor);
 }
 
-
+.button-lock {
+  background-color: var(--grayLightColor);
+  cursor: default;
+}
 
 .mb-90 {
   margin-bottom: 90px;
