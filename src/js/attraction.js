@@ -1,12 +1,15 @@
 /* 引入資料 */
-import { cityData, activityData, restaurantData } from './apiDataProcess.js';
+import { cityData, activityData, restaurantData, cityActivityData, cityRestaurantData} from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
 /* 固定資料 */
 const classOne = ['景點','活動'];
 
+
+
 /* 動態變數 */
 let clickPage = 0;
-
+let cacheActivity =[];
+let cacheRestaurant = [];
 /* 事件觸發 */
 let activityButton;
 const cityButton = document.querySelectorAll('.city-button'); //city 切換事件
@@ -49,7 +52,7 @@ function autoHotCity() {
   tempData = cityData.filter(item => hotCityData.indexOf(item.CityName) !== -1);
    for(let i = 7*clickPage ; i < 7*clickPage+7; i++) {
     str += `
-    <li class="city-show-item">
+    <li class="city-show-item" data-name="${tempData[i].City}">
       <img class="hot-city-background" src="./src/image/jpg/fixedCityImage/${tempData[i].City}.jpg" alt="${tempData[i].City}">
       <img class="mb-6" src="./src/image/svg/Icon/map_M.svg" alt="position Icon">
       <p>${ tempData[i].CityName }</p>
@@ -62,25 +65,26 @@ function autoHotCity() {
 /* 動態 hot activity */
 const activityList = document.getElementById('activityList');
 function autoHotActivity() {
+  console.log(cacheActivity);
   let str = '';
-  for(let i = 0; i < 4; i++) {
+  cacheActivity.forEach(item => {
     str +=`
       <li class="activity-card mb-48">
-        <img src="${ activityData[i].Picture.PictureUrl1 }" class="mr-16">
+        <img src="${ item.Picture.PictureUrl1 }" class="mr-16" onerror="this.src='./src/image/jpg/placeholder.jpg'"/>
         <div class="activity-content">
-          <h3 class="mb-14">${ activityData[i].Name }</h3>
-          <p class="mb-14">${ activityData[i].Description }</p>
+          <h3 class="mb-14">${ item.Name }</h3>
+          <p class="mb-14">${ item.Description }</p>
           <div class="activity-info">
             <span class="activity-position">
               <img src="./src/image/svg/Icon/gps.svg" alt="position" class="mr-8">
-              <p>${ activityData[i].Location }</p>
+              <p>${ item.Location }</p>
             </span>
-            <button class="activity-button" value="${ activityData[i].Name }">活動詳情</button>
+            <button class="activity-button" value="${ item.Name }">活動詳情</button>
           </div>
         </div>
       </li>
     `;
-  }
+  });
   activityList.innerHTML = str;
   eventInit();
 }
@@ -89,18 +93,18 @@ function autoHotActivity() {
 const restaurantList = document.getElementById('restaurantList');
 function autoHotRestaurant() {
   let str = '';
-  for(let i =0; i < 10; i++) {
+  cacheRestaurant.forEach(item => {
     str +=`
       <li class="card">
-        <img src="${ restaurantData[i].Picture.PictureUrl1 }" alt="餐廳照片">
-        <p class="card-name">${ restaurantData[i].Name }</p>
+        <img src="${ item.Picture.PictureUrl1 }" alt="餐廳照片">
+        <p class="card-name">${ item.Name }</p>
         <span class="card-position">
           <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
-          <p>${ restaurantData[i].Address.substr(0,6) }</p>
+          <p>${ item.Address.substr(0,6) }</p>
         </span>
       </li>
     `
-  }
+  });
   restaurantList.innerHTML = str;
 }
 
@@ -145,11 +149,10 @@ let  detailPicture;
 let closeButton; //關閉跳出視窗的按鍵
 let showActivity; //過濾出選中的詳細資料
 let activityPictures; //選出所有的照片資料
-console.log(activityData);
 async function activityInfo(e) {
-  showActivity = activityData.filter(item => item.Name === e.target.value);
+  showActivity = cacheActivity;
+  console.log(showActivity[0]);
   activityPictures = getActivityPicture(showActivity[0].Picture);
-  console.log(activityPictures);
   let str = `
     <div class="activity-info-card">
       <button class="close-button" id="closeButton">
@@ -247,10 +250,31 @@ function switchPicture(e) {
 
 
 
+/* search 部分 */
+hotCityShow.addEventListener('click',catchCityData);
+
+async function catchCityData(e) {
+  cacheActivity = await cityActivityData(e.target.dataset.name);
+  cacheRestaurant = await cityRestaurantData(e.target.dataset.name);
+  autoHotActivity();
+  autoHotRestaurant();
+}
+
+function showCitySearch() {
+
+}
+
+
+function initPage() {
+  cacheActivity = activityData.filter((item,index) => index < 4 );
+  cacheRestaurant = restaurantData.filter((item, index) => index < 10); 
+} 
 function render() {
   autoHotCity();
 }
 
+
+initPage();
 autoHotCity();
 autoCitySelect();
 autoClassSelect();

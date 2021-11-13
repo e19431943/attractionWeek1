@@ -165,6 +165,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   box-shadow:
     0px -2px 10px 5px var(--lightColor),
     0px 2px 8px 1px var(--blackColor);
@@ -182,7 +183,13 @@
 .city-show-item > p {
   color: var(--lightColor);
   font-size: 20px;
+  pointer-events: none;
 }
+.city-show-item > img {
+  pointer-events: none;
+}
+
+
 .hot-city-background {
   transition: ease-in-out .3s;
   width: 100%;
@@ -253,6 +260,7 @@
   z-index: -1;
 }
 .activity-card > img {
+  background: url(../image/jpg/placeholder.jpg);
   width: 40%;
 }
 .activity-content {
@@ -284,6 +292,10 @@
   width: 24px;
   height: 24px;
 }
+.activity-position > p {
+  
+}
+
 .activity-button {
   position: relative;
   transition: ease-in-out .3s;
