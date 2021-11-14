@@ -35,11 +35,11 @@ export const apiGetCityName = () => CityRequest.get('/gist_api/V3/Map/Basic/City
 export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON');
 
 /* 特定縣市活動 */
-export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON`);
+export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
 
 /* 全部縣市餐飲資料 */
 export const apiGetRestaurant = () => SightSeeRequest.get('/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON');
 
 /* 特定縣市餐飲 */
-export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON`);
+export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
 

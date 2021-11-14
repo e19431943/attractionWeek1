@@ -1,6 +1,7 @@
 /* 引入資料 */
 import { cityData, activityData, restaurantData, cityActivityData, cityRestaurantData} from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
+import { createPagiation } from './modules/createPagination.js';
 /* 固定資料 */
 const classOne = ['景點','活動'];
 
@@ -64,10 +65,14 @@ function autoHotCity() {
 
 /* 動態 hot activity */
 const activityList = document.getElementById('activityList');
-function autoHotActivity() {
-  console.log(cacheActivity);
-  let str = '';
-  cacheActivity.forEach(item => {
+const  autoHotActivity =  function (setPage = 0) {
+  let str = ''; 
+  const activityPageNum = Math.ceil(cacheActivity.length/4);
+  const activityTemplate = addPage(activityPageNum);
+  createPagiation(activityPage, activityTemplate());
+  for(let i = setPage*4; i < (setPage+1)*4  ; i++) {
+    let item = cacheActivity[i];
+    if(item === undefined) break;
     str +=`
       <li class="activity-card mb-48">
         <img src="${ item.Picture.PictureUrl1 }" class="mr-16" onerror="this.src='./src/image/jpg/placeholder.jpg'"/>
@@ -84,16 +89,23 @@ function autoHotActivity() {
         </div>
       </li>
     `;
-  });
+  }
   activityList.innerHTML = str;
-  eventInit();
+  eventInit('activity');
+
+  /* 閉包的function */
 }
 
 /* 動態hot restaurant */
 const restaurantList = document.getElementById('restaurantList');
-function autoHotRestaurant() {
+function autoHotRestaurant(setPage = 0) {
   let str = '';
-  cacheRestaurant.forEach(item => {
+  const restaurantPageNum = Math.ceil(cacheRestaurant.length/10);
+  const restaurantTemplate = addPage(restaurantPageNum);
+  createPagiation(restaurantPage, restaurantTemplate());
+  for(let i = setPage*10; i < (setPage+1)*10 ; i++) {
+    let item = cacheRestaurant[i];
+    if(item === undefined) break;
     str +=`
       <li class="card">
         <img src="${ item.Picture.PictureUrl1 }" alt="餐廳照片">
@@ -104,8 +116,10 @@ function autoHotRestaurant() {
         </span>
       </li>
     `
-  });
+
+  }
   restaurantList.innerHTML = str;
+  eventInit('restaurant');
 }
 
 /* 事件處理函式 */
@@ -118,6 +132,39 @@ function hotCityPage(e) {
   switchCityButton();
   render();
 }
+
+function activityPageEvent(e) {
+  e.preventDefault();
+  let action = e.target.dataset.action;
+  let page;
+  if(action === 'prePage') {
+
+  }
+  else if (action === 'nextPage') {
+
+  }
+  else if (action === 'setPage') {
+    page = Number(e.target.dataset.value);
+  }
+  autoHotActivity(page);
+}
+
+function restaurantPageEvent(e) {
+  e.preventDefault();
+  let action = e.target.dataset.action;
+  let page;
+  if(action === 'prePage') {
+
+  }
+  else if (action === 'nextPage') {
+
+  }
+  else if (action === 'setPage') {
+    page = Number(e.target.dataset.value);
+  }
+  autoHotRestaurant(page);
+}
+
 
 /* 確保隱藏起來的button 不會被觸發 */
 function switchCityButton() {
@@ -135,11 +182,17 @@ function switchCityButton() {
 }
 
 /* */
-function eventInit() {
-  activityButton = document.querySelectorAll('.activity-button');
-  activityButton.forEach(item => {
-    item.addEventListener('click', activityInfo);
-  });
+function eventInit(type) {
+  if(type === 'activity') {
+    activityButton = document.querySelectorAll('.activity-button');
+    activityButton.forEach(item => {
+      item.addEventListener('click', activityInfo);
+    });
+    activityPage.addEventListener('click', activityPageEvent);
+  }
+  else if(type === 'restaurant') {
+    restaurantPage.addEventListener('click', restaurantPageEvent);
+  }
   
   
 }
@@ -256,13 +309,30 @@ hotCityShow.addEventListener('click',catchCityData);
 async function catchCityData(e) {
   cacheActivity = await cityActivityData(e.target.dataset.name);
   cacheRestaurant = await cityRestaurantData(e.target.dataset.name);
+  console.log(cacheActivity);
   autoHotActivity();
   autoHotRestaurant();
 }
 
-function showCitySearch() {
 
-}
+/* pagiation 部分 */
+const activityPage = document.getElementById('activityPagiation');
+const restaurantPage = document.getElementById('restaurantPagiation');
+function addPage(pageNum) {
+  return () => {
+  let str = '<a class="pagination-item" data-action="prePage">Pre</a><a class="pagination-item hiddle">...</a>';
+  for(let i = 1; i <= pageNum; i++) {
+    str +=`
+    <a href="#" class="pagination-item"  data-action="setPage" data-value=${i}>
+      ${i}
+    </a>
+    `
+  }
+  str += '<a class="pagination-item hiddle">...</a><a class="pagination-item" data-action="nextPage">Next</a>';
+  return str;
+ }
+ 
+}; 
 
 
 function initPage() {
