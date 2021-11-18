@@ -81,7 +81,7 @@
             </div>
             <div class="control-search">
               <input type="text" placeholder="搜尋關鍵字" class="control-text-field">
-              <button class="control-button search-button">
+              <button class="control-button search-button" id="searchButton">
                 <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
               </button>
               <select id="classSelect" class="control-select"></select>
@@ -93,49 +93,55 @@
           </div>
         </div>
         <div class="show-area">
-          <div class="hot-city-container mb-60"">
-            <div class="city-show-container">
+          <div class="default-show" id="defaultShow">
+            <div class="hot-city-container mb-60"">
+              <div class="city-show-container">
+                <div class="item-title mb-12">
+                  <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
+                  <p>熱門城市</p>
+                </div>
+                <ul id="hotCityShow" class="hot-city-show">
+                </ul>
+                <button class="city-button city-pre-button" value="pre">
+                  <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
+                </button>
+                <button class="city-button button-show city-next-button"value="next">
+                  <img src="./src/image/svg/Icon/next_b.svg" alt="nextIcon">
+                </button>
+              </div>
+            </div>
+            <div class="hot-activity mb-60">
               <div class="item-title mb-12">
                 <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
-                <p>熱門城市</p>
+                <p>熱門活動</p>
               </div>
-              <ul id="hotCityShow" class="hot-city-show">
+              <ul class="activity-list" id="activityList">
               </ul>
-              <button class="city-button city-pre-button" value="pre">
-                <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
-              </button>
-              <button class="city-button button-show city-next-button"value="next">
-                <img src="./src/image/svg/Icon/next_b.svg" alt="nextIcon">
-              </button>
+            </div>
+            <div class="hot-restaurant">
+              <div class="item-title mb-12">
+                <img src="./src/image/svg/Rectangle.svg" alt="標點">
+                <p>熱門餐飲</p>
+              </div>
+              <ul class="card-list" id="restaurantList">
+                <li class="card mb-35">
+                  <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+                  <p class="card-name">友誼山莊簡餐</p>
+                  <span class="card-position">
+                    <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+                    <p>連江縣莒光鄉</p>
+                  </span>
+                </li> 
+              </ul>
             </div>
           </div>
-          <div class="hot-activity mb-60">
-            <div class="item-title mb-12">
+          <div class="select-show hiddle" id="selectShow">
+            <div class="item-title mb-12" id="showTitle">
               <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
-              <p>熱門活動</p>
+              <p></p>
             </div>
-            <ul class="activity-list" id="activityList">
-            </ul>
-            <nav class="pagination" id="activityPagiation">
-              <a href="#" class="pagination-item">1</a>
-            </nav>
-          </div>
-          <div class="hot-restaurant">
-            <div class="item-title mb-12">
-              <img src="./src/image/svg/Rectangle.svg" alt="標點">
-              <p>熱門餐飲</p>
-            </div>
-            <ul class="card-list" id="restaurantList">
-              <li class="card mb-35">
-                <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
-                <p class="card-name">友誼山莊簡餐</p>
-                <span class="card-position">
-                  <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
-                  <p>連江縣莒光鄉</p>
-                </span>
-              </li> 
-            </ul>
-            <nav class="pagination" id="restaurantPagiation">
+            <ul class="card-list" id="showCardList"></ul>
+            <nav class="pagination" id="showPageList" >
               <a href="#" class="pagination-item">1</a>
             </nav>
           </div>
@@ -150,6 +156,7 @@
       <p>Taiwan Tourguide  © Code: Nofly翔  /  Design: KT</p>
     </footer>
   </div>
+ 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
   <script type="module" src="./src/js/main.js"></script>

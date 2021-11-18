@@ -100,21 +100,61 @@
   background-color: var(--grayLightColor);
   cursor: default;
 }
-.hiddle {
-  display: none;
-}
+
 
 /* page */
 
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-.pagination-item {
-  padding: 10px 12px;
-  background-color: #aaa;
+.pagination-item, .pagination-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  width: 52px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.pagination-item:hover {
+  background-color: var(--blackColor);
+  color: var(--lightColor);
+}
+.pagination-choosed {
+  background-color: var(--blackColor);
+  color: var(--lightColor);
+}
+.pagination-control {
+  display: flex;
+  justify-content: center;
+  border-radius: 5px;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin: 10px;
+}
+.pagination-control > img{
+  pointer-events: none;
+}
+.pagination-previous {
+  background-color: var(--blackColor);
+}
+.pagination-next {
+  background-color: var(--redColor);
 }
 
+.non-click {
+  pointer-events: none; 
+}
+.hiddle {
+  display: none;
+}
+.show {
+  display: block;
+}
 
 .mb-90 {
   margin-bottom: 90px;
