@@ -2,7 +2,7 @@
 import { cityData, activityData, restaurantData, 
         cityActivityData, cityRestaurantData, getSelectData} from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
-import { createPagiation } from './modules/createPagination.js';
+import  createPagiation  from './modules/createPagination.js';
 /* 固定資料 */
 const classOne = ['景點','活動'];
 
@@ -10,15 +10,16 @@ const classOne = ['景點','活動'];
 let clickPage = 0; //決定city框的前後
 let cacheActivity =[...activityData]; //暫存活動資料
 let cacheRestaurant = []; //暫存餐廳資料
+let cacheAttration = [];
 // let activityCurrentPage = 0; //現在活動的頁數
 let restaurantCurrentPage = 0; //現在餐廳的頁數
 let activityPageNum = 0;
 let activityfirstNum = 2;
 let restaurantfirstNum = 2;
+let showPageQuantity = 0;
 
 const cityNameList = [...cityData];
 /* header */
-console.log('public', cacheActivity);
 
 
 /* select  事件*/
@@ -27,8 +28,13 @@ const citySelect = document.getElementById('citySelect');
 const searchButton = document.getElementById('searchButton');
 const selectShow = document.getElementById('selectShow');
 const defaultShow = document.getElementById('defaultShow');
-
 const hotCityShow = document.getElementById('hotCityShow');
+const firstPageList = document.getElementById('firstPageList');
+// let pageOption = {
+//   bindDom:firstPageList,
+//   Onchange: selectAttrRender,
+// };
+let pagination;
 
 let classCheckValue = ''; 
 classSelect.addEventListener('change', (e) => {
@@ -51,8 +57,7 @@ citySelect.addEventListener('change', (e) => {
   }
   else {
     getSelectProcess();     
-  }
-  console.log(cityCheckValue);
+  };
 });
 
 searchButton.addEventListener('click', (e) => {
@@ -68,63 +73,84 @@ searchButton.addEventListener('click', (e) => {
 
 async function getSelectProcess() {
   const data = await getSelectData(classCheckValue, cityCheckValue);
-  console.log('ddf',data);
   if(classCheckValue === '景點') {
-    selectAttrRender(data);
+    cacheAttration = data;
+    console.log('we');
+    let pageOption = {
+      bindDom:firstPageList,
+      Onchange: selectAttrRender,
+    };
+    pagination = createPagiation(pageOption);
+    selectAttrRender();
   }
   else {
-    selectActivityRender(data);
+    console.log('eee');
+    cacheActivity = data;
+    let pageOption = {
+      bindDom:firstPageList,
+      Onchange: selectActivityRender,
+    };
+    pagination = createPagiation(pageOption);
+    selectActivityRender();
   }
 }
 
-function selectActivityRender(data) {
-  cacheActivity = data;
-  console.log('select',data);
+
+
+const showPageList = document.getElementById('showPageList');
+const showTitle = document.querySelector('#showTitle > p');
+const showCardList = document.getElementById('showCardList');
+function selectActivityRender() {
+  showPageQuantity = cacheAttration.length / 8;
+  pagination.setPage(showPageQuantity);
   defaultShow.classList.add('hiddle');
   selectShow.classList.remove('hiddle');
-  let str = `
-    <div class="item-title mb-12">
-      <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
-      <p>搜尋:${classCheckValue} & ${cityCheckValue.chName || '沒有城市搜尋'}</p>
-    </div>
-    <ul class="activity-list" id="activityList">
-  `;
-  for(let i = 0; i < data.length ; i++) {
+  showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'}`;
+  let page = pagination.getPage();
+  let firstPage = (page*8) -8;
+  let str = '';
+  for(let i = firstPage ; i < page*8; i++) {
+    if(cacheActivity[i] === undefined) break;
+    let picture = cacheActivity[i].Picture.PictureUrl1 || './src/image/jpg/placeholder.jpg';
+    console.log(picture);
     str += `
       <li class="activity-card mb-48">
-        <img src="${ data[i].Picture.PictureUrl1 }" class="mr-16" onerror="this.src='./src/image/jpg/placeholder.jpg'"/>
+        <img src="${ picture }" class="mr-16" onerror="this.src='./src/image/jpg/placeholder.jpg'"/>
         <div class="activity-content">
-          <h3 class="mb-14">${ data[i].Name }</h3>
-          <p class="mb-14">${ data[i].Description }</p>
+          <h3 class="mb-14">${ cacheActivity[i].Name }</h3>
+          <p class="mb-14">${ cacheActivity[i].Description }</p>
           <div class="activity-info">
             <span class="activity-position">
               <img src="./src/image/svg/Icon/gps.svg" alt="position" class="mr-8">
-              <p>${ data[i].Location }</p>
+              <p>${ cacheActivity[i].Location }</p>
             </span>
-            <button class="activity-button" data-value="${ data[i].Name }">活動詳情</button>
+            <button class="activity-button" data-value="${ cacheActivity[i].Name }">活動詳情</button>
           </div>
         </div>
       </li>
     `;
   }
-  str += '</ul>';
-  selectShow.innerHTML = str;
+  showCardList.innerHTML = str;
   initActivityEvent();
 }
-const showPageList = document.getElementById('showPageList');
-const showTitle = document.querySelector('#showTitle > p');
-const showCardList = document.getElementById('showCardList');
-function selectAttrRender(data) {
+function selectAttrRender() {
+  console.log('render');
+  showPageQuantity = cacheAttration.length / 20;
+  pagination.setPage(showPageQuantity);
   defaultShow.classList.add('hiddle');
   selectShow.classList.remove('hiddle');
   showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'}`;
+  let page = pagination.getPage();
+  let firstPage = (page*20) -20;
+  console.log(page, firstPage);
   let str = '';
-  for(let i = 0; i < data.length ; i++ ) {
-    let address = data[i].Address || '沒有提供資料';
+  for(let i = firstPage ; i < page*20 ; i++ ) {
+    if(cacheAttration[i] === undefined) break;
+    let address = cacheAttration[i].Address || '沒有提供資料';
     str+=`
       <li class="card">
-        <img src="${ data[i].Picture.PictureUrl1 }" alt="景點照片">
-        <p class="card-name">${ data[i].Name }</p>
+        <img src="${ cacheAttration[i].Picture.PictureUrl1 }" alt="景點照片">
+        <p class="card-name">${ cacheAttration[i].Name }</p>
         <span class="card-position">
           <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
           <p>${ address.substr(0,6) }</p>
@@ -135,6 +161,13 @@ function selectAttrRender(data) {
   showCardList.innerHTML = str;
 }
 
+function initShowPage() {
+  
+  createPagiation(pageOption);
+  
+ 
+}
+// initShowPage();
 
 /* 事件觸發 */
 const cityButton = document.querySelectorAll('.city-button'); //city 切換事件
@@ -173,7 +206,6 @@ function autoClassSelect() {
 
 function autoCitySelect() {
   let str = '<option value="" class="select-item">不分縣市</option>';
-  console.log(cityData);
   cityNameList.forEach(element => {
     str += `
       <option class="select-item" value="${element.City}" data-city="${element.CityName}">${ element.CityName }</option>
@@ -232,7 +264,6 @@ function autoHotActivity(setPage = 0) {
 /* 動態hot restaurant */
 const restaurantList = document.getElementById('restaurantList');
 function autoHotRestaurant() {
-  console.log(cacheRestaurant);
   let str = '';
   for(let i = 0; i < 10 ; i++) {
     let item = cacheRestaurant[i];
@@ -267,7 +298,6 @@ function pageEvent(e,currentPage) {
   if(currentPage === Number(e.target.dataset.value) || e.target.dataset.action === undefined ) return;
   let action = e.target.dataset.action;
   
-  console.log(action, currentPage);
   let page = currentPage;
   
   if(action === 'prePage') {
@@ -443,7 +473,6 @@ function addPage(pageNum, type, firstPageNum) {
     <a href="#" class="pagination-item pagination-choosed"  data-action="setPage" data-value=${0} data-type=${type}>1</a>
     <a class="pagination-more hiddle" data-type=${type} id="pageLeft">...</a>`;
   for(let i = firstPageNum; i < firstPageNum + countPage; i++) {
-    console.log(i);
     str +=`
     <a href="#" class="pagination-item"  data-action="setPage" data-value=${i-1} data-type=${type}>
       ${i}

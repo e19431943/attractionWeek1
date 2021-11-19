@@ -31,7 +31,7 @@ const SightSeeRequest2 = axios.create({
 export const apiGetCityName = () => CityRequest.get('/gist_api/V3/Map/Basic/City?$format=JSON');
 
 /* 全部縣市的活動資料 */
-export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON');
+export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
 
 /* 特定縣市活動 */
 export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
@@ -43,7 +43,7 @@ export const apiGetRestaurant = () => SightSeeRequest.get('/MOTC/v2/Tourism/Rest
 export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
 
 /* 全部縣市的景點 */
-export const apiGetAttraction = () => SightSeeRequest.get('/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON');
+export const apiGetAttraction = () => SightSeeRequest.get('/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
 
 /* 特定縣市景點 */
-export const apiGetSelectAttraction = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/ScenicSpot/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$top=30&$format=JSON`);
+export const apiGetSelectAttraction = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/ScenicSpot/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
