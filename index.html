@@ -56,22 +56,25 @@
         </a>
       </h1>
       <ul class="nav">
-        <li class="nav-item">
+        <li class="nav-item" data-value="台灣景點">
+          <span class="nav-red-choosed"></span>
           <img src="./src/image/svg/navButton1.svg" alt="台灣景點">
           <a href="#">台灣景點</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-value="美食住宿">
+          <span class="nav-yellow-choosed"></span>
           <img src="./src/image/svg/navButton2.svg" alt="美食住宿">
           <a href="#">美食住宿</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" data-value="景點交通">
+          <span class="nav-green-choosed"></span>
           <img src="./src/image/svg/navButton3.svg" alt="景點交通">
           <a href="#">景點交通</a>
         </li>
       </ul>
     </header>
     <main class="main">
-      <div class="first-page">
+      <div class="first-page show-page">
         <div class="main-area mb-90">
           <div class="hero-image"></div>
           <div class="main-control"> 
@@ -80,12 +83,12 @@
               <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
             </div>
             <div class="control-search">
-              <input type="text" placeholder="搜尋關鍵字" class="control-text-field">
+              <input type="text" placeholder="搜尋關鍵字" class="control-text-field" id="attractionSearch">
               <button class="control-button search-button" id="searchButton">
                 <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
               </button>
-              <select id="classSelect" class="control-select"></select>
-              <select id="citySelect" class="control-select"></select>
+              <select id="classSelectAttract" class="control-select class-select"></select>
+              <select id="citySelectAttract" class="control-select city-select"></select>
               <button  class="control-button position-button">
                 <img src="./src/image/svg/Icon/Position.svg" alt="定位_icon">
               </button>
@@ -93,7 +96,7 @@
           </div>
         </div>
         <div class="show-area">
-          <div class="default-show" id="defaultShow">
+          <div class="default-show" id="defaultAttractShow">
             <div class="hot-city-container mb-60"">
               <div class="city-show-container">
                 <div class="item-title mb-12">
@@ -135,21 +138,83 @@
               </ul>
             </div>
           </div>
-          <div class="select-show hiddle" id="selectShow">
-            <div class="item-title mb-12" id="showTitle">
+          <div class="select-show hiddle" id="selectAttractShow">
+            <div class="item-title mb-12" id="showAttractTitle">
               <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
               <p></p>
             </div>
-            <ul class="card-list" id="showCardList"></ul>
-            
+            <ul class="card-list" id="showAttractCardList"></ul>
           </div>
         </div>
       </div>
-      <div class="second-page">
+      <div class="second-page hiddle show-page">
+        <div class="main-area mb-90">
+          <div class="hero-image"></div>
+          <div class="main-control"> 
+            <div class="control-text">
+              <img src="./src/image/svg/contrilText.png" alt="Taiwan_title">
+              <p>台北、台中、台南、屏東、宜蘭……遊遍台灣</p>
+            </div>
+            <div class="control-search">
+              <input type="text" placeholder="搜尋關鍵字" class="control-text-field" id="attractionSearch">
+              <button class="control-button search-button" id="searchButton">
+                <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
+              </button>
+              <select id="classSelectFood" class="control-select class-select"></select>
+              <select id="citySelectFood" class="control-select city-select"></select>
+              <button  class="control-button position-button">
+                <img src="./src/image/svg/Icon/Position.svg" alt="定位_icon">
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="show-area">
+          <div class="default-show" id="defaultFoodShow">
+            <div class="hot-food mb-60">
+              <div class="item-title mb-12">
+                <img src="./src/image/svg/Rectangle.svg" alt="標點">
+                <p>熱門美食</p>
+              </div>
+              <ul class="card-list" id="foodList">
+                <li class="card mb-35">
+                  <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+                  <p class="card-name">友誼山莊簡餐</p>
+                  <span class="card-position">
+                    <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+                    <p>連江縣莒光鄉</p>
+                  </span>
+                </li> 
+              </ul>
+            </div>
+            <div class="hot-house">
+              <div class="item-title mb-12">
+                <img src="./src/image/svg/Rectangle.svg" alt="標點">
+                <p>推薦住宿</p>
+              </div>
+              <ul class="card-list" id="houseList">
+                <li class="card mb-35">
+                  <img src="https://www.matsu-nsa.gov.tw/FileArtPic.ashx?id=2913&w=1280&h=960" alt="餐廳照片">
+                  <p class="card-name">友誼山莊簡餐</p>
+                  <span class="card-position">
+                    <img src="./src/image/svg/Icon/map.svg" alt="position Icon">
+                    <p>連江縣莒光鄉</p>
+                  </span>
+                </li> 
+              </ul>
+            </div>
+          </div>
+          <div class="select-show hiddle" id="selectFoodShow">
+            <div class="item-title mb-12" id="showFoodTitle">
+              <img src="./src/image/svg/Rectangle.svg" alt="標點">
+              <p></p>
+            </div>
+            <ul class="card-list" id="showFoodCardList"></ul>
+          </div>
+        </div>
       </div> 
-      <div class="third-page"> 
+      <div class="third-page hiddle show-page"> 
       </div>
-      <nav class="pagination" id="firstPageList" >
+      <nav class="pagination hiddle" id="firstPageList" >
         <a href="#" class="pagination-item">1</a>
       </nav>
     </main>
@@ -161,7 +226,7 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
   <script type="module" src="./src/js/main.js"></script>
-  <script type="module" src="./src/js/apiDataProcess.js"></script>
   <script type="module" src="./src/js/attraction.js"></script>
+  <script type="module" src="./src/js/food.js"></script>
 </body>
 </html>
