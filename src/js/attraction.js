@@ -5,13 +5,13 @@ import { hotCityData } from './modules/fixedData.js';
 import  createPagiation  from './modules/createPagination.js';
 // console.log('active', activityData);
 /* 固定資料 */
-const classOne = ['景點','活動'];
 
 /* 動態變數 */
 let clickPage = 0; //決定city框的前後
 let cacheActivity = []; //暫存活動資料
 let cacheRestaurant = []; //暫存餐廳資料
 let cacheAttration = [];
+let searchValue = '';
 
 const cityNameList = [...cityData];
 /* header */
@@ -57,46 +57,64 @@ citySelect.addEventListener('change', (e) => {
 });
 
 /* 這是搜尋按鈕後觸發 */
-searchButton.addEventListener('click', (e) => {
-  console.log('search',attractionData);
-  classSelect.value = '';
-  citySelect.value = '';
-  // if(classCheckValue === '') {
-  //   alert('類別不能為空');
-  // }
-  // else {
-  //   getSelectProcess();
-  // }
-});
+searchButton.addEventListener('click', searchProcess);
+
+
+function searchProcess(e) {
+  const inputReg = new RegExp(attractionSearch.value);
+  const data = attractionData;
+  cacheAttration = data.filter((item) => {
+    let str = item.Name + item.DescriptionDetail + item.Address;
+    return str.match(inputReg);
+  });
+  searchValue = attractionSearch.value;
+  firstPageList.classList.remove('hiddle');
+  const showPageQuantity = Math.ceil(cacheAttration.length / 20);
+  let pageOption = {
+    bindDom: firstPageList,
+    Onchange: changeEventProcess,
+    type: 'attraction',
+    pageLength: showPageQuantity,
+  };
+  console.log(cacheAttration);
+  pagination = new createPagiation(pageOption);
+  // pagination.setPage(showPageQuantity);
+  selectAttrRender();
+}
 
 /* 引響畫面事件的重點 */
 async function getSelectProcess() {
+  searchValue = ''; //用來清空search 的資料顯示
   firstPageList.classList.remove('hiddle');
   const data = await getSelectData(classCheckValue, cityCheckValue);
   if(classCheckValue === '景點') {
+    let searchValue = '';
     cacheAttration = data;
     console.log('景點');
-    const showPageQuantity = cacheAttration.length / 20;
+    const showPageQuantity =  Math.ceil(cacheAttration.length / 20);
     let pageOption = {
       bindDom: firstPageList,
       Onchange: changeEventProcess,
       type: 'attraction',
+      pageLength: showPageQuantity,
     };
-    pagination = createPagiation(pageOption);
-    pagination.setPage(showPageQuantity);
+    pagination = new createPagiation(pageOption);
+    // pagination.setPage(showPageQuantity);
     selectAttrRender();
   }
   else {
+    let searchValue = '';
     console.log('活動');
     cacheActivity = data;
-    const showPageQuantity = cacheActivity.length / 8;
+    const showPageQuantity = Math.ceil(cacheActivity.length / 8);
     let pageOption = {
       bindDom: firstPageList,
       Onchange: changeEventProcess,
       type: 'activity',
+      pageLength: showPageQuantity,
     };
     pagination = createPagiation(pageOption);
-    pagination.setPage(showPageQuantity);
+    // pagination.setPage(showPageQuantity);
     selectActivityRender();
   }
 }
@@ -150,7 +168,7 @@ function selectAttrRender() {
   console.log('renderAttr');
   defaultShow.classList.add('hiddle');
   selectShow.classList.remove('hiddle');
-  showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'}`;
+  showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'} ${searchValue}`;
   let page = pagination.getPage();
   let firstPage = (page*20) -20;
   // console.log(page, firstPage);
@@ -172,11 +190,6 @@ function selectAttrRender() {
   showCardList.innerHTML = str;
 }
 
-// function initShowPage() {
-//   createPagiation(pageOption);
-// }
-// initShowPage();
-
 /* 事件觸發 */
 const cityButton = document.querySelectorAll('.city-button'); //city 切換事件
 cityButton.forEach(item => {
@@ -196,33 +209,8 @@ function getCityData(e) {
   getSelectProcess();
 }
 
-/* 動態類別 */
-
-function autoClassSelect() {
-  let str = '<option value="" class="select-item">類別</option>';
-  classOne.forEach(element => {
-    str += `
-      <option class="select-item" value="${element}">${ element }</option>
-    `
-  });
-  classSelect.innerHTML = str;  
-}
-
-/* 動態出現city 下拉 */
-
-
-function autoCitySelect() {
-  let str = '<option value="" class="select-item">不分縣市</option>';
-  cityNameList.forEach(element => {
-    str += `
-      <option class="select-item" value="${element.City}" data-city="${element.CityName}">${ element.CityName }</option>
-    `
-  });
-  citySelect.innerHTML = str;  
-}
 
 /* 動態hot city */
-
 function autoHotCity() {
   let str = '';
   let tempData = [];
@@ -292,7 +280,7 @@ function autoHotRestaurant() {
 
 /* 事件處理函式 */
 function hotCityPage(e) {
-  if(e.target.value === 'next') {
+  if(e.currentTarget.value === 'next') {
     clickPage = 1;
   }else {
     clickPage = 0;
@@ -300,34 +288,6 @@ function hotCityPage(e) {
   switchCityButton();
   autoHotCity();
 }
-
-function pageEvent(e,currentPage) {
-  if(currentPage === Number(e.target.dataset.value) || e.target.dataset.action === undefined ) return;
-  let action = e.target.dataset.action;
-  
-  let page = currentPage;
-  
-  if(action === 'prePage') {
-    page = (currentPage-1) < 0 ? 0 : currentPage-1;
-  }
-  else if (action === 'nextPage') {
-    let limt = e.target.dataset.count;
-    page = (currentPage+1) > limt-1 ? limt-1 : currentPage+1;
-  }
-  else if (action === 'setPage') {
-    page = Number(e.target.dataset.value);
-  }
-  return 0;
-}
-
-// function resetPageClass(dom) {
-//   dom.forEach(item => {
-//     item.classList.remove('pagination-choosed');
-//   })
-// }
-
-
-
 
 /* 確保隱藏起來的button 不會被觸發 */
 function switchCityButton() {
@@ -352,15 +312,6 @@ function initActivityEvent() {
 }
 
 
-
-
-function eventInit(type) {
-  if(type === 'activity') {
-   
-    
-    autoHotActivity();
-  }
-}
 const body = document.querySelector('body');
 const fullView = document.getElementById('fullView');
 let  detailPicture;
@@ -464,18 +415,14 @@ function switchPicture(e) {
 }
 
 
-
-/* search 部分 */
-function initPage() {
+function init() {
   cacheActivity = activityData.filter((item,index) => index < 4 );
   cacheRestaurant = restaurantData.filter((item, index) => index < 10);
+  autoHotCity();
+  autoHotActivity();
+  autoHotRestaurant();
 } 
 
-initPage();
-autoHotCity();
-autoCitySelect();
-// autoClassSelect();
-autoHotActivity();
-autoHotRestaurant();
+init();
 
 
