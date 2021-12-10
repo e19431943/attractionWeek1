@@ -1,6 +1,6 @@
 /* 引入資料 */
 import { cityData, activityData, restaurantData, attractionData, 
-        getSelectData} from './apiDataProcess.js';
+        getSelectData, getNearyCityData} from './apiDataProcess.js';
 import { hotCityData } from './modules/fixedData.js';
 import  createPagiation  from './modules/createPagination.js';
 // console.log('active', activityData);
@@ -27,6 +27,9 @@ const hotCityShow = document.getElementById('hotCityShow');
 const firstPageList = document.getElementById('firstPageList');
 const attractionSearch = document.getElementById('attractionSearch');
 let pagination;
+
+/* BUTTON */
+const positionButton = document.getElementById('attractPosition');
 
 
 /* 下拉類別事件 */
@@ -55,6 +58,33 @@ citySelect.addEventListener('change', (e) => {
     getSelectProcess();
   };
 });
+
+/* 定位按鈕 */
+positionButton.addEventListener('click', positionProcess);
+
+function positionProcess () {
+  navigator.geolocation.getCurrentPosition(
+    async function (position) {
+      const longitude = position.coords.longitude;  // 經度
+      const latitude = position.coords.latitude;  // 緯度
+      let data = await getNearyCityData(latitude, longitude);
+      classSelect.value = '景點'
+      citySelect.value = data.enName;
+      classCheckValue = '景點';
+      cityCheckValue = {chName: data.chName, enName:data.enName};
+      console.log(data.chName, data.enName);
+      getSelectProcess();
+    // 錯誤訊息
+    },
+    function (e) {
+      const errorCode = e.code;
+      const errorMesage = e.message;
+        console.error(errorCode);
+        console.error(errorMesage);
+    }
+  );
+}
+
 
 /* 這是搜尋按鈕後觸發 */
 searchButton.addEventListener('click', searchProcess);
@@ -85,6 +115,7 @@ function searchProcess(e) {
 /* 引響畫面事件的重點 */
 async function getSelectProcess() {
   searchValue = ''; //用來清空search 的資料顯示
+  attractionSearch.value = '';
   firstPageList.classList.remove('hiddle');
   const data = await getSelectData(classCheckValue, cityCheckValue);
   if(classCheckValue === '景點') {

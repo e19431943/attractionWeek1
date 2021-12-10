@@ -2,7 +2,7 @@
 /* 引入API */
 import { apiGetCityName, apiGetActivity, apiGetRestaurant,
         apigetSelectActivity, apigetSelectRestaurant, apiGetAttraction,
-        apiGetSelectAttraction, apiGetHouse, apiGetSelectHouse} from './api.js';
+        apiGetSelectAttraction, apiGetHouse, apiGetSelectHouse, apiGetNearyCity} from './api.js';
 
 async function getData(data) {
   let res;
@@ -12,6 +12,11 @@ async function getData(data) {
   }
   return res.data;
 }
+
+export async function getNearyCityData(lat, long) {
+  let data = await apiGetNearyCity(lat, long);
+  return {enName: data.data[0].City, chName: data.data[0].CityName};
+};
 
 // await getData(apiGetAttraction())
 // export const cityData = getData(apiGetCityName());

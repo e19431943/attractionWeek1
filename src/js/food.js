@@ -1,6 +1,6 @@
 // import test from './modules/mainSelectProcess.js';
 import mainSelect from './modules/mainSelectProcess.js';
-import { houseData, restaurantData, getSelectFoodData} from './apiDataProcess.js';
+import { houseData, restaurantData, getSelectFoodData, getNearyCityData} from './apiDataProcess.js';
 import  createPagiation  from './modules/createPagination.js';
 const foodList = document.getElementById('foodList');
 const houseList = document.getElementById('houseList');
@@ -24,6 +24,34 @@ let searchValue = '';
 let firstPage = 0;
 let finalPage = 10;
 
+/* position */
+const positionButton = document.getElementById('foodPosition');
+
+positionButton.addEventListener('click', positionProcess);
+
+function positionProcess () {
+  navigator.geolocation.getCurrentPosition(
+    async function (position) {
+      const longitude = position.coords.longitude;  // 經度
+      const latitude = position.coords.latitude;  // 緯度
+      let data = await getNearyCityData(latitude, longitude);
+      /* 讓select選擇的文字變換 */
+      classSelect.value = '美食'
+      citySelect.value = data.enName;
+      /* 傳值 */
+      classCheckValue = '美食';
+      cityCheckValue = {chName: data.chName, enName:data.enName};
+      getSelectProcess();
+    // 錯誤訊息
+    },
+    function (e) {
+      const errorCode = e.code;
+      const errorMesage = e.message;
+        console.error(errorCode);
+        console.error(errorMesage);
+    }
+  );
+}
 /* 下拉類別事件 */
 classSelect.addEventListener('change', (e) => {
   console.log('foodclass');
@@ -80,8 +108,9 @@ function searchProcess(e) {
 
 /* 觸發下拉事件處理 */
 async function getSelectProcess() {
-  firstPageList.classList.remove('hiddle');
   searchValue = '';
+  foodSearch.value = '';
+  firstPageList.classList.remove('hiddle');
   const  data= await getSelectFoodData(classCheckValue, cityCheckValue);
   const showPageQuantity =  Math.ceil(data.length / 20);
   if(classCheckValue === '美食') {

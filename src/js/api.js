@@ -32,8 +32,8 @@ console.log('apiCreate');
 
 
 
-/* City name 相關 */
-const CityRequest = axios.create({
+/* 圖標相關 */
+const SearchLocalteRequest = axios.create({
   baseURL: 'https://gist.motc.gov.tw',
   headers: getAuthorizion(),
 });
@@ -51,9 +51,13 @@ const SightSeeRequest2 = axios.create({
 
 
 
+
 /* City name 相關 輸出 */
 // export const apiGetCityName = () => CityRequest.get('/gist_api/V3/Map/Basic/City?$format=JSON');
 export const apiGetCityName = cityData;
+
+/* serch座標定位附近的城市 */
+export const apiGetNearyCity = (lat, long) => SearchLocalteRequest.get(`/gist_api/V3/Map/GeoLocating/District/LocationX/${long}/LocationY/${lat}?$format=JSON`);
 
 /* 全部縣市的活動資料 */
 export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
