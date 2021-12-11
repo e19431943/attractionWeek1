@@ -116,24 +116,28 @@
 /*hot city*/
 .hot-city-container {
   width: 100%;
-  height: 277px;
+
 }
 .city-show-container {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: min-content;
-  height: 100%;
-  
+  width: 100%;
+  height: 277px; 
+}
+.hot-city-wrep {
+  position: relative;
+  height: 245px;
+  overflow: hidden;
 }
 .city-next-button {
   right: -45px;
-  bottom: 105px;
+  bottom: 115px;
 }
 .city-pre-button {
   left: -45px;
-  bottom: 105px;
+  bottom: 115px;
 }
 .city-button {
   position: absolute;
@@ -157,9 +161,12 @@
   opacity: 1;
 }
 .hot-city-show {
-  height: 100%; 
+  position: absolute;
+  transition: ease-in-out .5s;
+  left: 0;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 202px);
+  grid-template-columns: repeat(10, 212px);
   grid-template-rows: 1fr 1fr;
 }
 .city-show-item {
@@ -174,21 +181,27 @@
     0px 2px 8px 1px var(--blackColor);
   overflow: hidden;
 }
-.city-show-item:nth-child(3n+1) {
+.city-show-item1:nth-child(3n+1) {
   grid-row: 1/3;
 }
-.city-show-item:nth-child(3n+2) {
+.city-show-item1:nth-child(3n+2) {
   grid-row: 1/2;
 }
-.city-show-item:nth-child(3n+3) {
+.city-show-item1:nth-child(3n+3){
   grid-row: 2/3;
 }
-.city-show-item > p {
+.city-show-item2:nth-child(3n+2) {
+  grid-row: 1/3;
+}
+.city-show-item2:nth-child(3n+1) {
+  grid-row: 1/2;
+}
+.city-show-item1 > p, .city-show-item2 > p {
   color: var(--lightColor);
   font-size: 20px;
   pointer-events: none;
 }
-.city-show-item > img {
+.city-show-item1 > img, .city-show-item2 > img {
   pointer-events: none;
 }
 

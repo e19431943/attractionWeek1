@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./src/css/publicStyle.css">
   <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/attractionPage.css">
+  <link rel="stylesheet" href="./src/css/rwdAttract.css">
   <title>Taiwan_TourGuide</title>
 </head>
 <body class="body">
@@ -99,13 +100,15 @@
         <div class="show-area">
           <div class="default-show" id="defaultAttractShow">
             <div class="hot-city-container mb-60"">
+              <div class="item-title mb-12">
+                <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
+                <p>熱門城市</p>
+              </div>
               <div class="city-show-container">
-                <div class="item-title mb-12">
-                  <img src="./src/image/svg/Icon/triangle_red.svg" alt="標點">
-                  <p>熱門城市</p>
+                <div class="hot-city-wrep">
+                  <ul id="hotCityShow" class="hot-city-show">
+                  </ul>
                 </div>
-                <ul id="hotCityShow" class="hot-city-show">
-                </ul>
                 <button class="city-button city-pre-button" value="pre">
                   <img src="./src/image/svg/Icon/previous-1.svg" alt="prev   ious Icon">
                 </button>

@@ -240,21 +240,23 @@ function getCityData(e) {
   getSelectProcess();
 }
 
-
+// for(let i = 7*clickPage ; i < 7*clickPage+7; i++) {
 /* 動態hot city */
 function autoHotCity() {
   let str = '';
   let tempData = [];
   tempData = cityNameList.filter(item => hotCityData.indexOf(item.CityName) !== -1);
-   for(let i = 7*clickPage ; i < 7*clickPage+7; i++) {
-    str += `
-    <li class="city-show-item" data-ch-name="${tempData[i].CityName}" data-en-name="${tempData[i].City}">
-      <img class="hot-city-background" src="./src/image/jpg/fixedCityImage/${tempData[i].City}.jpg" alt="${tempData[i].City}">
-      <img class="mb-6" src="./src/image/svg/Icon/map_M.svg" alt="position Icon">
-      <p>${ tempData[i].CityName }</p>
-    </li>
-  `;
-   }
+  for(let j = 1 ; j <= 2; j++) {
+    for(let i = 7*(j-1); i < 7*(j-1)+7; i++) {
+      str += `
+        <li class="city-show-item city-show-item${j}" data-ch-name="${tempData[i].CityName}" data-en-name="${tempData[i].City}">
+          <img class="hot-city-background" src="./src/image/jpg/fixedCityImage/${tempData[i].City}.jpg" alt="${tempData[i].City}">
+          <img class="mb-6" src="./src/image/svg/Icon/map_M.svg" alt="position Icon">
+          <p>${ tempData[i].CityName }</p>
+        </li>
+      `;
+    }
+  }
   hotCityShow.innerHTML = str;
 }
 
@@ -312,9 +314,9 @@ function autoHotRestaurant() {
 /* 事件處理函式 */
 function hotCityPage(e) {
   if(e.currentTarget.value === 'next') {
-    clickPage = 1;
+    hotCityShow.style.setProperty('left', '-100%');
   }else {
-    clickPage = 0;
+    hotCityShow.style.setProperty('left', 0);
   }
   switchCityButton();
   autoHotCity();
