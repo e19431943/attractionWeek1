@@ -7,8 +7,6 @@ export default function createPagiation ({pageLength = 1, bindDom={}, current = 
     current 現在的值
     OnChange 是用來改變資料的渲染的函式
   */
-    console.log('初始', Onchange);
-
   /* 用來設定page頁數 */
   const setPage = (length) => {
     pageLength = Math.ceil(length);

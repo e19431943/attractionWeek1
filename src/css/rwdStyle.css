@@ -1,0 +1,136 @@
+@media (max-width: 1024px) {
+  .header {
+    padding: 17px 40px;
+  }
+  .wrep {
+    width: 768px;
+  }
+  .error-area {
+    margin-top: 15px;
+  }
+  .main-area {
+   height: min-content;
+  }
+  .hero-image {
+    display: none;
+  }
+  .control-text {
+    display: none;
+  }
+  .show-area {
+    padding: 35px 0 50px 65px;
+  }
+  /*共用樣式*/
+  .card {
+    width: 152px;
+  }
+  .card > img {
+    height: 96px;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .wrep {
+    width: 360px;
+  }
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  }
+  .logo {
+    margin-bottom: 13px;
+  }
+  .logo img {
+    width: 90px;
+    height: 52px;
+  }
+  .nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 40px;
+  }
+  .nav-item {
+    margin: 0;
+  }
+  .nav-item > a{
+    text-decoration: none;
+    color: var(--grayColor);
+  }
+  .nav-item:hover a {
+    color: var(--redColor);
+  }
+  .nav-red-choosed, .nav-yellow-choosed, .nav-green-choosed {
+    background-color: var(--lightColor);
+    color: var(--redColor);
+  }
+  .nav-item >img, .nav-item > span{
+    display: none;
+  }
+  .nav-item > .nav-choosed {
+    color: var(--redColor);
+    font-size: 16px;
+  }
+  
+  .show-area {
+    padding: 35px 0 50px 26px;
+  }
+  .main-area {
+    padding: 16px;
+  }
+  .control-search {
+    justify-content: space-around;
+  }
+  .control-text-field {
+    position: fixed;
+    display: none;
+  }
+  .control-button {
+    display: none;
+  }
+  .control-select {
+    font-size: 1rem;
+    letter-spacing: normal;
+  }
+  .control-button-mobile-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-control-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    width: 30px;
+    height: 30PX;
+    font-size: 16px;
+  }
+  .search-button {
+    margin-right: 6px;
+  }
+  .mobile-field {
+    margin-right: 6px;
+  }
+  /*.pagination*/
+  .pagination {
+    position: relative;
+  }
+  .pagination-next {
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 40%;
+  }
+  .pagination-previous {
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+    width: 40%;
+  }
+}

@@ -1,3 +1,4 @@
+console.log('attract.js');
 /* 引入資料 */
 import { cityData, activityData, restaurantData, attractionData, 
         getSelectData, getNearyCityData} from './apiDataProcess.js';
@@ -7,7 +8,7 @@ import  createPagiation  from './modules/createPagination.js';
 /* 固定資料 */
 
 /* 動態變數 */
-let clickPage = 0; //決定city框的前後
+let cacheCity = [];
 let cacheActivity = []; //暫存活動資料
 let cacheRestaurant = []; //暫存餐廳資料
 let cacheAttration = [];
@@ -16,7 +17,8 @@ let searchValue = '';
 const cityNameList = [...cityData];
 /* header */
 
-
+const showArea = document.getElementById('attractShowArea');
+const errorArea = document.getElementById('attractErrorArea');
 /* select  事件*/
 const classSelect = document.getElementById('classSelectAttract'); //fix
 const citySelect = document.getElementById('citySelectAttract'); //fix
@@ -27,10 +29,11 @@ const hotCityShow = document.getElementById('hotCityShow');
 const firstPageList = document.getElementById('firstPageList');
 const attractionSearch = document.getElementById('attractionSearch');
 let pagination;
-
 /* BUTTON */
 const positionButton = document.getElementById('attractPosition');
 
+/* mobile button */
+const mobileSearchValue = document.getElementById('mobileSearchValue');
 
 /* 下拉類別事件 */
 let classCheckValue = '';
@@ -62,7 +65,9 @@ citySelect.addEventListener('change', (e) => {
 /* 定位按鈕 */
 positionButton.addEventListener('click', positionProcess);
 
-function positionProcess () {
+/* Position Event */
+export function positionProcess () { 
+  console.log('測試position1');
   navigator.geolocation.getCurrentPosition(
     async function (position) {
       const longitude = position.coords.longitude;  // 經度
@@ -90,15 +95,21 @@ function positionProcess () {
 searchButton.addEventListener('click', searchProcess);
 
 
-function searchProcess(e) {
-  const inputReg = new RegExp(attractionSearch.value);
+export function searchProcess(e) {
+  let value = '';
+  if (e.currentTarget.id === 'searchButton') {
+    value = attractionSearch.value;
+  } else if (e.currentTarget.id === 'mobileSearch') {
+    value = mobileSearchValue.value;
+  }
+  const inputReg = new RegExp(value);
+  addLoading();
   const data = attractionData;
   cacheAttration = data.filter((item) => {
     let str = item.Name + item.DescriptionDetail + item.Address;
     return str.match(inputReg);
   });
-  searchValue = attractionSearch.value;
-  firstPageList.classList.remove('hiddle');
+  searchValue = value;
   const showPageQuantity = Math.ceil(cacheAttration.length / 20);
   let pageOption = {
     bindDom: firstPageList,
@@ -114,9 +125,11 @@ function searchProcess(e) {
 
 /* 引響畫面事件的重點 */
 async function getSelectProcess() {
+  showArea.classList.add('hiddle');
+  addLoading();
   searchValue = ''; //用來清空search 的資料顯示
   attractionSearch.value = '';
-  firstPageList.classList.remove('hiddle');
+  mobileSearchValue.value = '';
   const data = await getSelectData(classCheckValue, cityCheckValue);
   if(classCheckValue === '景點') {
     let searchValue = '';
@@ -152,6 +165,8 @@ async function getSelectProcess() {
 
 function changeEventProcess() {
   let type = pagination.getType();
+  foodSearch.value = '';
+  mobileSearchValue.value = '';
   console.log('change value', type);
   if (type === 'attraction') {
     selectAttrRender();
@@ -165,9 +180,15 @@ const showPageList = document.getElementById('showPageList');
 const showTitle = document.querySelector('#showAttractTitle > p');
 const showCardList = document.getElementById('showAttractCardList');
 function selectActivityRender() {
+  /* 重置資料顯示狀態 */
   console.log('renderAcity');
-  defaultShow.classList.add('hiddle');
-  selectShow.classList.remove('hiddle');
+  firstPageList.classList.add('hiddle');
+  if (cacheActivity.length === 0) return errorView();
+  firstPageList.classList.remove('hiddle');
+  errorArea.classList.add('hiddle');
+  defaultShow.classList.add('hiddle'); //關掉預設的顯示畫面
+  showArea.classList.remove('hiddle');
+  selectShow.classList.remove('hiddle'); //結果顯示區域
   showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'}`;
   let page = pagination.getPage();
   let firstPage = (page*8) -8;
@@ -196,9 +217,18 @@ function selectActivityRender() {
   initActivityEvent();
 }
 function selectAttrRender() {
-  console.log('renderAttr');
-  defaultShow.classList.add('hiddle');
-  selectShow.classList.remove('hiddle');
+  // console.log('renderAttr', cacheAttration);
+  /* 重置資料顯示狀態 */
+  firstPageList.classList.add('hiddle');
+  /* 判斷資料是不是空值 */
+  if(cacheAttration.length === 0) return errorView();
+
+  /* 資料成功進來後，所呈現的初始狀態 */
+  firstPageList.classList.remove('hiddle');
+  errorArea.classList.add('hiddle');
+  defaultShow.classList.add('hiddle'); //關掉預設的顯示畫面
+  showArea.classList.remove('hiddle');
+  selectShow.classList.remove('hiddle'); //結果顯示區域
   showTitle.innerText =  `搜尋:${classCheckValue}  ${cityCheckValue.chName || '沒有城市搜尋'} ${searchValue}`;
   let page = pagination.getPage();
   let firstPage = (page*20) -20;
@@ -244,8 +274,7 @@ function getCityData(e) {
 /* 動態hot city */
 function autoHotCity() {
   let str = '';
-  let tempData = [];
-  tempData = cityNameList.filter(item => hotCityData.indexOf(item.CityName) !== -1);
+  const tempData = cacheCity;
   for(let j = 1 ; j <= 2; j++) {
     for(let i = 7*(j-1); i < 7*(j-1)+7; i++) {
       str += `
@@ -446,14 +475,47 @@ function switchPicture(e) {
   }
   detailPicture.setAttribute('src',activityPictures[pictureNum]);
 }
+function addLoading() {
+  errorArea.classList.remove('hiddle');
+  const str = `<img src="./src/image/gif/Loading.gif" alt="loading" class="loading">`;
+  errorArea.innerHTML = str;
+}
 
+function errorView() {
+  console.log('error');
+  showArea.classList.add('hiddle');
+  errorArea.classList.remove('hiddle');
+  const str = `
+  <img src="./src/image/svg/Union.svg"></img>
+  <div class="error-message">
+    <h3>Oop！</h3>
+    <p>很抱歉，找不到符合此搜尋相關的內容。</P>
+  <div>
+  `;
+  console.log('error', str);
+  errorArea.innerHTML = str;
+}
 
-function init() {
-  cacheActivity = activityData.filter((item,index) => index < 4 );
-  cacheRestaurant = restaurantData.filter((item, index) => index < 10);
-  autoHotCity();
-  autoHotActivity();
-  autoHotRestaurant();
+export function init() {
+  try {
+    addLoading();
+    cacheActivity = activityData.filter((item,index) => index < 4 );
+    cacheRestaurant = restaurantData.filter((item, index) => index < 10);
+    cacheCity = cityNameList.filter(item => hotCityData.indexOf(item.CityName) !== -1);
+    autoHotCity();
+    autoHotActivity();
+    autoHotRestaurant();
+    errorArea.classList.add('hiddle');
+    selectShow.classList.add('hiddle');
+    showArea.classList.remove('hiddle');
+    defaultShow.classList.remove('hiddle');
+    mobilePosition.addEventListener('click', positionProcess); //mobile
+    mobileSearch.addEventListener('click', searchProcess);// mobile search
+    foodSearch.value = '';
+    mobileSearchValue.value = '';
+  } catch (error) {
+    errorView();
+  }
 } 
 
 init();

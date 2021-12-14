@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="./src/css/reset.css">
+  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/variable.css">
   <link rel="stylesheet" href="./src/css/publicStyle.css">
-  <link rel="stylesheet" href="./src/css/style.css">
   <link rel="stylesheet" href="./src/css/attractionPage.css">
   <link rel="stylesheet" href="./src/css/rwdAttract.css">
+  <link rel="stylesheet" href="./src/css/rwdStyle.css">
   <title>Taiwan_TourGuide</title>
 </head>
 <body class="body">
@@ -57,6 +58,15 @@
           <img src="./src/image/svg/logo.svg" alt="Logo">
         </a>
       </h1>
+      <div class="control-button-mobile-group">
+        <input type="text" placeholder="搜尋關鍵字" class="mobile-field" id="mobileSearchValue">
+        <button class="mobile-control-button search-button " id="mobileSearch">
+          <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
+        </button>
+        <button  class="mobile-control-button position-button" id="positionMobile">
+          <img src="./src/image/svg/Icon/Position.svg" alt="定位_icon">
+        </button>
+      </div>
       <ul class="nav">
         <li class="nav-item" data-value="台灣景點">
           <span class="nav-red-choosed"></span>
@@ -68,16 +78,24 @@
           <img src="./src/image/svg/navButton2.svg" alt="美食住宿">
           <a href="#">美食住宿</a>
         </li>
-        <li class="nav-item" data-value="景點交通">
+        <li class="nav-item hiddle" data-value="景點交通"> <!--尚未完工-->
           <span class="nav-green-choosed"></span>
           <img src="./src/image/svg/navButton3.svg" alt="景點交通">
           <a href="#">景點交通</a>
         </li>
       </ul>
+      <!-- <div class="mobile-search-wrep">
+        <div class="mobile-search-control">
+          <input type="text" placeholder="搜尋關鍵字" class="mobile-field" id="mobileSearch">
+          <button class="mobile-control-button search-button" id="searchMobile">
+            <img src="./src/image/svg/Icon/Combined-Shape.svg" alt="seach_icon">
+          </button>
+        </div>
+      </div> -->
     </header>
     <main class="main">
       <div class="first-page show-page">
-        <div class="main-area mb-90">
+        <div class="main-area">
           <div class="hero-image"></div>
           <div class="main-control"> 
             <div class="control-text">
@@ -97,7 +115,10 @@
             </div>
           </div>
         </div>
-        <div class="show-area">
+        <div class="error-area" id="attractErrorArea">
+          <img src="./src/image/gif/Loading.gif" alt="loading" class="loading">
+        </div>
+        <div class="show-area hiddle" id="attractShowArea">
           <div class="default-show" id="defaultAttractShow">
             <div class="hot-city-container mb-60"">
               <div class="item-title mb-12">
@@ -152,7 +173,7 @@
         </div>
       </div>
       <div class="second-page hiddle show-page">
-        <div class="main-area mb-90">
+        <div class="main-area">
           <div class="hero-image"></div>
           <div class="main-control"> 
             <div class="control-text">
@@ -172,7 +193,10 @@
             </div>
           </div>
         </div>
-        <div class="show-area">
+        <div class="error-area" id="foodErrorArea">
+          <img src="./src/image/gif/Loading.gif" alt="loading" class="loading">
+        </div>
+        <div class="show-area" id="foodShowArea">
           <div class="default-show" id="defaultFoodShow">
             <div class="hot-food mb-60">
               <div class="item-title mb-12">
@@ -229,6 +253,7 @@
  
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsSHA/3.2.0/sha.js"></script>
+  <script src="./src/js/globel_variable.js"></script>
   <script type="module" src="./src/js/main.js"></script>
   <script type="module" src="./src/js/attraction.js"></script>
   <script type="module" src="./src/js/food.js"></script>

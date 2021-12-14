@@ -1,0 +1,34 @@
+@media (max-width: 1024px) {
+  .city-button {
+    display: none;
+  }
+  .hot-city-wrep {
+    height: 192px;
+    overflow: scroll;
+  }
+  .hot-city-show {
+    grid-template-columns: repeat(10, 159px);
+  }
+  .activity-list {
+    justify-content: flex-start;
+  }
+  .activity-card {
+    width: 298px;
+    height: 120px;
+    margin-left: 17px;
+    margin-bottom: 15px;
+  }
+  .activity-content > p {
+    display: none;
+  }
+  .activity-button {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .activity-card {
+    margin: 0;
+  }
+  
+
+}

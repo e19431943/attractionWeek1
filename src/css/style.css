@@ -28,7 +28,6 @@
 .wrep {
   width: 1280px;
   margin: 0 auto;
-  
 }
 
 /* header */
@@ -115,4 +114,18 @@
 }
 .footer > p {
   color: var(--grayColor);
+}
+
+
+/*mobile 部分*/
+.control-button-mobile-group {
+  display: none;
+}
+.mobile-field {
+  border-radius: 5px;
+  height: 40PX;
+  font-size: 16px;
+}
+.mobile::placeholder {
+  color: var(--grayLightColor);
 }
