@@ -48,8 +48,8 @@ const SightSeeRequest2 = axios.create({
   headers: getAuthorizion(),
 });
 
-let safari = '&nocache=' + new Date().getTime();
-
+// let safari = '&nocache=' + new Date().getTime();
+let safari = ''; //會影響速率，先將他收起來
 
 
 /* City name 相關 輸出 */
@@ -60,13 +60,13 @@ export const apiGetCityName = cityData;
 export const apiGetNearyCity = (lat, long) => SearchLocalteRequest.get(`/gist_api/V3/Map/GeoLocating/District/LocationX/${long}/LocationY/${lat}?$format=JSON${safari}`);
 
 /* 全部縣市的活動資料 */
-export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}');
+export const apiGetActivity = () => SightSeeRequest.get(`/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 特定縣市活動 */
 export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 全部縣市餐飲資料 */
-export const apiGetRestaurant = () => SightSeeRequest.get('/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}');
+export const apiGetRestaurant = () => SightSeeRequest.get(`/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 特定縣市餐飲 */
 export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
