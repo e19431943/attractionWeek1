@@ -27,7 +27,7 @@ export default function mainSelect(index = 0) {
     classSelect[index].innerHTML = str;  
   };
   const autoCity = () => {
-    console.log('auto');
+    // console.log('auto');
     let str = '<option value="" class="select-item">不分縣市</option>';
     cityNameList.forEach(element => {
       str += `

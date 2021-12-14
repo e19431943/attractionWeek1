@@ -38,7 +38,7 @@ const mobileSearchValue = document.getElementById('mobileSearchValue');
 /* 下拉類別事件 */
 let classCheckValue = '';
 classSelect.addEventListener('change', (e) => {
-  console.log('class');
+  // console.log('class');
   classCheckValue = e.target.value;
   if(classCheckValue === '') {
     alert('類別不能為空');
@@ -67,7 +67,7 @@ positionButton.addEventListener('click', positionProcess);
 
 /* Position Event */
 export function positionProcess () { 
-  console.log('測試position1');
+  // console.log('測試position1');
   navigator.geolocation.getCurrentPosition(
     async function (position) {
       const longitude = position.coords.longitude;  // 經度
@@ -77,7 +77,7 @@ export function positionProcess () {
       citySelect.value = data.enName;
       classCheckValue = '景點';
       cityCheckValue = {chName: data.chName, enName:data.enName};
-      console.log(data.chName, data.enName);
+      // console.log(data.chName, data.enName);
       getSelectProcess();
     // 錯誤訊息
     },
@@ -117,7 +117,7 @@ export function searchProcess(e) {
     type: 'attraction',
     pageLength: showPageQuantity,
   };
-  console.log(cacheAttration);
+  // console.log(cacheAttration);
   pagination = new createPagiation(pageOption);
   // pagination.setPage(showPageQuantity);
   selectAttrRender();
@@ -134,7 +134,7 @@ async function getSelectProcess() {
   if(classCheckValue === '景點') {
     let searchValue = '';
     cacheAttration = data;
-    console.log('景點');
+    // console.log('景點');
     const showPageQuantity =  Math.ceil(cacheAttration.length / 20);
     let pageOption = {
       bindDom: firstPageList,
@@ -148,7 +148,7 @@ async function getSelectProcess() {
   }
   else {
     let searchValue = '';
-    console.log('活動');
+    // console.log('活動');
     cacheActivity = data;
     const showPageQuantity = Math.ceil(cacheActivity.length / 8);
     let pageOption = {
@@ -167,7 +167,7 @@ function changeEventProcess() {
   let type = pagination.getType();
   foodSearch.value = '';
   mobileSearchValue.value = '';
-  console.log('change value', type);
+  // console.log('change value', type);
   if (type === 'attraction') {
     selectAttrRender();
   }
@@ -181,7 +181,7 @@ const showTitle = document.querySelector('#showAttractTitle > p');
 const showCardList = document.getElementById('showAttractCardList');
 function selectActivityRender() {
   /* 重置資料顯示狀態 */
-  console.log('renderAcity');
+  // console.log('renderAcity');
   firstPageList.classList.add('hiddle');
   if (cacheActivity.length === 0) return errorView();
   firstPageList.classList.remove('hiddle');
@@ -261,7 +261,7 @@ hotCityShow.addEventListener('click', getCityData);
 
 /* 觸發熱門城市的事件 */
 function getCityData(e) {
-  console.log('hotcity');
+  // console.log('hotcity');
   classCheckValue = '景點';
   cityCheckValue = {'chName': e.target.dataset.chName , 'enName': e.target.dataset.enName};
   /* 給select的value 選取的字的改變，但是並不會觸發select change事件 */
@@ -482,7 +482,7 @@ function addLoading() {
 }
 
 function errorView() {
-  console.log('error');
+  // console.log('error');
   showArea.classList.add('hiddle');
   errorArea.classList.remove('hiddle');
   const str = `
@@ -492,7 +492,7 @@ function errorView() {
     <p>很抱歉，找不到符合此搜尋相關的內容。</P>
   <div>
   `;
-  console.log('error', str);
+  // console.log('error', str);
   errorArea.innerHTML = str;
 }
 

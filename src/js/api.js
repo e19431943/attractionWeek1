@@ -25,7 +25,7 @@ const cityData = [
 ];
 /* 引入標頭金鑰驗證 */
 import getAuthorizion from './modules/AuthorizationHeader.js';
-console.log('apiCreate');
+// console.log('apiCreate');
 /* TDX 路段編碼相關 相關API */
 
 //https://link.motc.gov.tw/v2/Basic/City?$format=JSON

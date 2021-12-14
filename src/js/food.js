@@ -1,5 +1,4 @@
 // import test from './modules/mainSelectProcess.js';
-console.log('food');
 import mainSelect from './modules/mainSelectProcess.js';
 import { houseData, restaurantData, getSelectFoodData, getNearyCityData} from './apiDataProcess.js';
 import  createPagiation  from './modules/createPagination.js';
@@ -40,7 +39,7 @@ const mobileSearchValue = document.getElementById('mobileSearchValue');
 positionButton.addEventListener('click', positionProcess);
 
 export function positionProcess () {
-  console.log('測試position2');
+  // console.log('測試position2');
   navigator.geolocation.getCurrentPosition(
     async function (position) {
       const longitude = position.coords.longitude;  // 經度
@@ -65,7 +64,7 @@ export function positionProcess () {
 }
 /* 下拉類別事件 */
 classSelect.addEventListener('change', (e) => {
-  console.log('foodclass');
+  // console.log('foodclass');
   classCheckValue = e.target.value;
   if(classCheckValue === '') {
     alert('類別不能為空');
@@ -116,7 +115,7 @@ export function searchProcess(e) {
   };
   pagination = createPagiation(pageOption);
   // pagination.setPage(showPageQuantity);
-  console.log('檢查', cacheAllData);
+  // console.log('檢查', cacheAllData);
   changeSearchProcess();
   renderSearch();
 }
@@ -133,7 +132,7 @@ async function getSelectProcess() {
   const showPageQuantity =  Math.ceil(data.length / 20);
   if(classCheckValue === '美食') {
     cacheFood = data;
-    console.log('美食');
+    // console.log('美食');
     let pageOption = {
       bindDom: firstPageList,
       Onchange: changeEventProcess,
@@ -146,7 +145,7 @@ async function getSelectProcess() {
   }
   else {
     cacheHouse = data;
-    console.log('住宿');
+    // console.log('住宿');
     let pageOption = {
       bindDom: firstPageList,
       Onchange: changeEventProcess,
@@ -161,7 +160,7 @@ async function getSelectProcess() {
 
 function changeEventProcess() {
   let type = pagination.getType();
-  console.log('檢查', type);
+  // console.log('檢查', type);
   foodSearch.value = '';
   mobileSearchValue.value = '';
   if (type === 'food') {
@@ -173,7 +172,7 @@ function changeEventProcess() {
     renderHouse();
   }
   else {
-    console.log('tetete');
+    // console.log('tetete');
     
     changeSearchProcess();
     renderSearch();
@@ -307,7 +306,7 @@ function changeSearchProcess() {
 }
 
 function errorView() {
-  console.log('error');
+  // console.log('error');
   showArea.classList.add('hiddle');
   errorArea.classList.remove('hiddle');
   const str = `
@@ -317,13 +316,13 @@ function errorView() {
     <p>很抱歉，找不到符合此搜尋相關的內容。</P>
   <div>
   `;
-  console.log('error', str);
+  // console.log('error', str);
   errorArea.innerHTML = str;
 }
 
 export function init() {
   try {
-    console.log('food INIT');
+    // console.log('food INIT');
     cacheFood = restaurantData.filter((item, index) => index < 10);
     cacheHouse = houseData.filter((item, index) => index < 10);
     defaultRender();
