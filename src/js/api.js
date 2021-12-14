@@ -48,7 +48,7 @@ const SightSeeRequest2 = axios.create({
   headers: getAuthorizion(),
 });
 
-let safari = '?nocache=' + new Date().getTime();
+let safari = '&nocache=' + new Date().getTime();
 
 
 
