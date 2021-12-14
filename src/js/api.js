@@ -48,7 +48,7 @@ const SightSeeRequest2 = axios.create({
   headers: getAuthorizion(),
 });
 
-
+let safari = '?nocache=' + new Date().getTime();
 
 
 
@@ -57,28 +57,28 @@ const SightSeeRequest2 = axios.create({
 export const apiGetCityName = cityData;
 
 /* serch座標定位附近的城市 */
-export const apiGetNearyCity = (lat, long) => SearchLocalteRequest.get(`/gist_api/V3/Map/GeoLocating/District/LocationX/${long}/LocationY/${lat}?$format=JSON`);
+export const apiGetNearyCity = (lat, long) => SearchLocalteRequest.get(`/gist_api/V3/Map/GeoLocating/District/LocationX/${long}/LocationY/${lat}?$format=JSON${safari}`);
 
 /* 全部縣市的活動資料 */
-export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
+export const apiGetActivity = () => SightSeeRequest.get('/MOTC/v2/Tourism/Activity?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}');
 
 /* 特定縣市活動 */
-export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
+export const apigetSelectActivity = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Activity/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 全部縣市餐飲資料 */
-export const apiGetRestaurant = () => SightSeeRequest.get('/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
+export const apiGetRestaurant = () => SightSeeRequest.get('/MOTC/v2/Tourism/Restaurant?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}');
 
 /* 特定縣市餐飲 */
-export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
+export const apigetSelectRestaurant = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Restaurant/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 全部縣市的景點 */
-export const apiGetAttraction = () => SightSeeRequest.get('/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
+export const apiGetAttraction = () => SightSeeRequest.get(`/MOTC/v2/Tourism/ScenicSpot?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 特定縣市景點 */
-export const apiGetSelectAttraction = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/ScenicSpot/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
+export const apiGetSelectAttraction = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/ScenicSpot/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 全部縣市的住宿 */
-export const apiGetHouse = () => SightSeeRequest.get('/MOTC/v2/Tourism/Hotel?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON');
+export const apiGetHouse = () => SightSeeRequest.get(`/MOTC/v2/Tourism/Hotel?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
 
 /* 特定縣市住宿 */
-export const apiGetSelectHouse = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Hotel/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON`);
+export const apiGetSelectHouse = (city) => SightSeeRequest2.get(`/MOTC/v2/Tourism/Hotel/${city}?$filter=Picture%2FPictureUrl1%20ne%20null&$format=JSON${safari}`);
