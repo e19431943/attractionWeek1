@@ -1,9 +1,9 @@
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
   .header {
     padding: 17px 40px;
   }
   .wrep {
-    width: 768px;
+    max-width: 768px;
   }
   .error-area {
     margin-top: 15px;
@@ -32,7 +32,7 @@
 
 @media (max-width: 767px) {
   .wrep {
-    width: 360px;
+    max-width: 360px;
   }
   .header {
     display: flex;
@@ -76,7 +76,9 @@
     color: var(--redColor);
     font-size: 16px;
   }
-  
+  .card {
+    width: 48%;
+  }
   .show-area {
     padding: 35px 0 50px 26px;
   }
